@@ -1,6 +1,7 @@
 package com.example.righttrianglesolution;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,22 +65,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.calculate:
                 try {
-                    double a = Integer.parseInt(aText.getText().toString());
-                    double b = Integer.parseInt(bText.getText().toString());
+                    final String TAG = "MyTag";
+                    double a = Double.parseDouble(aText.getText().toString());
+                    double b = Double.parseDouble(bText.getText().toString());
                     double A = Math.toDegrees(Math.atan(a / b));
                     double B = 180 - 90 - A;
 
-                    Toast toast;
-                    if(aText.getText().toString().length() < 1 || bText.getText().toString().length() < 1) {
-                        toast = Toast.makeText(getApplicationContext(), "Заполните все поля",
-                                Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-
+//                    Log.v(TAG, "aText = " + aText);
                     result.setText("A = " + A + "\n" + "B = " + B);
                 }
                 catch (Exception e)
                 {
+                    Toast toast;
+                    toast = Toast.makeText(getApplicationContext(), "Заполните все поля или пишите через \".\"",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
                     e.printStackTrace();
                 }
         }
